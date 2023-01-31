@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  nginx:
+    depends_on:
+      - client
+      - api
+    build: 
+      dockerfile: Dockerfile
+      context: ./nginx/
+    ports: 
+      - 80:80
+  client:
+    build:
+      dockerfile: .docker/Dockerfile
+      context: ./client/
+    volumes:
+      - ./client:/app
+    environment:
+      - API=/api
+  api:
+    build:
+      dockerfile: .docker/Dockerfile
+      context: ./api/
+    volumes:
+      - ./api:/app
+  api2:
+    build:
+      dockerfile: .docker/Dockerfile
+      context: ./api/
+    volumes:
+      - ./api:/app
